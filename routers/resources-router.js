@@ -1,21 +1,16 @@
 const express = require('express')
+const db = require('../data/config');
 
 const router = express.Router()
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
+        const projects = await db('resources')
+        res.json(projects)
 
     } catch(err) {
         next(err)
     }
 })
 
-router.post('/', (req, res, next) => {
-    try {
-
-    } catch(err) {
-        next(err)
-    }
-})
-
-module.export = router
+module.exports = router
