@@ -27,7 +27,14 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:id/tasks', async (req, res, next) => {
     try {
-        const tasks = await db('tasks').where('project_id', req.params.id)
+        const tasks = await db('tasks as t')
+        .join('projects as p', 'p.id', 't.project_id')
+        .where('p.id', req.params.id)
+        .select(
+            'p.name as projectName',
+            'p.description as projectDescription',
+            't.*'
+        )
         res.json(tasks)
     } catch(err) {
         next(err)

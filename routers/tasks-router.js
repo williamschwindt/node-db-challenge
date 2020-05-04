@@ -5,8 +5,8 @@ const router = express.Router()
 
 router.get('/', async (req, res, next) => {
     try {
-        const projects = await db('tasks')
-        res.json(projects)
+        const tasks = await db('tasks')
+        res.json(tasks)
 
     } catch(err) {
         next(err)
